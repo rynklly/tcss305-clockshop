@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.io.PrintStream;
 
 
 public class ClockShop {
@@ -32,6 +33,18 @@ public class ClockShop {
     }
 
     public void sortClocks() {
+
+        for (int i = 1; i < myClocks.size(); i++) {
+            Clock current = myClocks.get(i);
+            int j = i-1;
+
+            while (j >= 0 && myClocks.get(j).compareTo(current) > 0) {
+                myClocks.set(j+1, myClocks.get(j));
+                j--;
+            }
+
+            myClocks.set(j+1, current);
+        }
     }
 
     public Clock getClock(int i) {
@@ -42,6 +55,13 @@ public class ClockShop {
     }
 
     public void writeClocksToFile(String fileName) {
+        try (PrintStream out = new PrintStream(new File(fileName))) {
+            for (int i = 0; i < myClocks.size(); i++){
+                out.print(myClocks.get(i).toString() + newline);
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("Could not open file: " + e.getMessage());
+        }
     }
 
     public int findClock(Clock clock) {
@@ -59,6 +79,10 @@ public class ClockShop {
     }
 
     public void setClock(Clock clock, int i) {
+        if(0 > i || i >= myClocks.size()){
+            throw new IllegalArgumentException("Index out of range.");
+        }
+        myClocks.set(i, clock);
     }
 
     public void fillClockShop(String file) {

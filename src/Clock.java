@@ -36,13 +36,15 @@ public class Clock implements Comparable<Clock> {
 
     public int compareTo(Clock clock2) {
         int compare;
-        if (clock2.myHours == myHours && clock2.myMinutes == myMinutes && clock2.mySeconds == mySeconds) {
+        int clock1sec;
+        int clock2sec;
+
+        clock1sec = myHours*360 + myMinutes*60 + mySeconds;
+        clock2sec = clock2.myHours*360 + clock2.myMinutes*60 + clock2.mySeconds;
+
+        if (clock1sec == clock2sec) {
             compare = 0;
-        } else if (clock2.myHours < myHours) {
-            compare = 1;
-        } else if (clock2.myMinutes < myMinutes) {
-            compare = 1;
-        } else if (clock2.mySeconds < mySeconds){
+        } else if (clock2sec < clock1sec) {
             compare = 1;
         } else {
             compare = -1;
