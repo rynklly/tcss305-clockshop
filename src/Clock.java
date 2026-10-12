@@ -1,4 +1,6 @@
+import java.time.LocalTime;
 import java.util.Objects;
+
 
 /**
  * Represents a 24-hour clock that stores an hour, minute, and second.
@@ -219,5 +221,15 @@ public class Clock implements Comparable<Clock> {
             compare = -1;
         }
         return compare;
+    }
+    
+    /**
+     * Sets this clock to the computer's current local time.
+     */
+    public void setToCurrentTime() {
+        final LocalTime time = LocalTime.now();
+        setHour(time.getHour());
+        setMinute(time.getMinute());
+        setSecond(time.getSecond());
     }
 }

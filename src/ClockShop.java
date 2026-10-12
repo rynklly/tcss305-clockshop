@@ -35,20 +35,13 @@ public class ClockShop {
      */
     public void fillClockShop(final String theInputFileName) {
         try (Scanner in = new Scanner(new File(theInputFileName))) {
-            while (in.hasNextLine()) {
-                final String line = in.nextLine();
-                if (line.isEmpty()) {
-                    continue;
-                }
+            in.useDelimiter(":|\\R+");
+            while (in.hasNextInt()) {
+                final int hour = in.nextInt();
+                final int min = in.nextInt();
+                final int sec = in.nextInt();
 
-                try (Scanner lineScanner = new Scanner(line)) {
-                    lineScanner.useDelimiter(":");
-                    final int hour = lineScanner.nextInt();
-                    final int min = lineScanner.nextInt();
-                    final int sec = lineScanner.nextInt();
-
-                    addClock(new Clock(hour, min, sec));
-                }
+                addClock(new Clock(hour, min, sec));
             }
         } catch (final FileNotFoundException e) {
             System.err.println("Could not open file: " + e.getMessage());

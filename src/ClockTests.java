@@ -1,3 +1,4 @@
+import java.time.LocalTime;
 /**
  * Use this class to test your Clock class.
  *
@@ -8,6 +9,7 @@
  * @author tomUW
  *
  */
+
 public class ClockTests {
 
 	public static void main(String[] args) {
@@ -24,7 +26,7 @@ public class ClockTests {
 		testCompareTo();
 		//The below method call is if you do the extra credit
 		// uncomment as necessary :-)
-		//testSetToCurrentTime();
+		testSetToCurrentTime();
 		System.out.println("---END CLOCK TESTS---");
 
 	}
@@ -32,9 +34,34 @@ public class ClockTests {
 // Uncomment and write the necessary code to test your setToCurrentTime method
 //  if you perform the extra credit
 
-//	private static void testSetToCurrentTime() {
-//
-//	}
+	private static void testSetToCurrentTime() {
+		final LocalTime time = LocalTime.now();
+		final Clock clock1 = new Clock();
+		final Clock clock2 = new Clock(0, 0, 0);
+		final int secondOfDay = time.toSecondOfDay();
+		System.out.println("CLOCK SETTOCURRENTTIME TESTS");
+		System.out.println("Testing default clock setting to current time");
+		clock1.setToCurrentTime();
+		final int clock1Seconds = (clock1.getHour() * 3600) + (clock1.getMinute() * 60) + clock1.getSecond();
+		if (0 <= clock1Seconds - secondOfDay && clock1Seconds - secondOfDay < 2) {
+			System.out.println("\tPASSED Default clock time set to current");
+			System.out.println("\tClock 1: " + clock1 + " System Time: " + time);
+		} else {
+			System.out.println("\tFAILED Default clock time not set to current");
+			System.out.println("\tClock 1: " + clock1 + " System Time: " + time);
+		}
+		System.out.println("Testing clock created with params setting to current time");
+		clock2.setToCurrentTime();
+		final int clock2Seconds = (clock2.getHour() * 3600) + (clock2.getMinute() * 60) + clock2.getSecond();
+		if (0 <= clock2Seconds - secondOfDay && clock2Seconds - secondOfDay < 2) {
+			System.out.println("\tPASSED Created clock time set to current");
+			System.out.println("\tClock 2: " + clock2 + " System Time: " + time);
+		} else {
+			System.out.println("\tFAILED Created clock time not set to current");
+			System.out.println("\tClock 2: " + clock2 + " System Time: " + time);
+		}
+
+	}
 
 	private static void testCompareTo() {
 		Clock clock1 = new Clock(0, 0, 0);
